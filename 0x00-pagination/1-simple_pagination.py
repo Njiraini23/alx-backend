@@ -39,7 +39,7 @@ class Server:
         """takes two arguments page with a default value of 1 
         and page_size with default of 10"""
         assert isinstance(page, int) and page > 0
-        assert isinstance(page_size) and page_size > 0
+        assert isinstance(page_size, int) and page_size > 0
 
         dataset = self.dataset()
         data_length = len(dataset)
