@@ -13,7 +13,7 @@ class FIFOCache(BaseCaching):
 
     def put(self, key, item):
         """ Assigns to the dictionary self.cache_data"""
-        if key or item is None:
+        if key is None or item is None:
             pass
         else:
             cache_length = len(self.cache_data)
