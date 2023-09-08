@@ -17,7 +17,7 @@ class MRUCache(BaseCaching):
         else:
             cache_length = len(self.cache_data)
             base_items = BaseCaching.MAX_ITEMS
-            if cache_length >= base_tems and key not in self.cache_data:
+            if cache_length >= base_items and key not in self.cache_data:
                 evicted_key = self.usage.pop()
                 self.cache_data.pop(evicted_key)
                 print('DISCARD: {}'.format(evicted_key))
