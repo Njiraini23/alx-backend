@@ -1,7 +1,5 @@
 import { createQueue } from 'kue';
 
-const queue = createQueue();
-
 const jobs = [
   {
     phoneNumber: '4153518780',
@@ -43,7 +41,24 @@ const jobs = [
     message: 'This is the code 4562 to verify your account'
   }, 
     phoneNumber: '4151218782',
-    message: 'This is the code 4321 to verif}`);
+    message: 'This is the code 4321 to verify your account}`);
   };
-jobs.on('error', function(error) {
-  console.log(`Notification job ${job} failed`);
+
+const queue = createQueue();
+jobs.forEach((myJob) => {
+  let job = queue.create('push_notification_code_2', myJob).save((error) => {
+    if (!error) console.log(`Notification job created: ${job.id}`);
+  });
+
+  job.on('complete', function() {
+    console.log(`Notification job completed: ${job.id}`);
+  });
+
+  job.on('failure', function(error) {
+    console.log(`Notification job ${job.id} failed: ${error}`);
+  });
+
+  job.on('progress', function(error) {
+    console.log(`Notification job {job.id} ${progress}% complete`);
+  });
+});
