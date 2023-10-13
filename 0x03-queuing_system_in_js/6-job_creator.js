@@ -3,14 +3,13 @@ import { createQueue } from 'kue';
 const queue = createQueue();
 
 const notification = {
-  'phoneNumber': '123123123'
+  'phoneNumber': '123123123',
   'message': 'please verify your email'
 }
 
-const job = queue.create('push_notification_code', notification).save( function(err) {
+const job = queue.create('push_notification_code', notification).save(function (err) {
   if (!err)
     console.log(`Notification job completed: ${job.id}`);
-  }
 });
    
 job.on('complete', function() {
