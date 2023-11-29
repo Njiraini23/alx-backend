@@ -1,4 +1,5 @@
 import { createClient, print } from 'redis';
+import { promisfy } from 'util';
 
 const client = createClient();
 
@@ -8,20 +9,22 @@ client.on('connect', function() {
 
 client.on('error', function (err) {
   console.log(`Redis client not connected to the server: ${err}`);
-});
+};
 
 function setNewSchool(schoolName, value) {
   client.set(schoolName, value, print);
 };
 
-function displaySchoolValue(schoolName) {
-  client.get(schoolName, function(error, result) {
+const get = promisfy(client.get).bind(client);
+
+async function displaySchoolValue(schoolName) {
+  const result = await get(schoolName).catch((error) => {
     if (error) {
       console.log(error);
       throw error;
     }
-    console.log(result);
   });
+  console.log(result);
 }
 
 displaySchoolValue('Holberton');
