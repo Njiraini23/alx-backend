@@ -1,25 +1,26 @@
 import { createClient } from 'redis';
 
-const redisClient = createClient();
+const publisher = createClient();
 
-//create connection to server
-redisClient.on('connect', function () {
+//connecting to server
+publisher.on('connect', function () {
   console.log('Redis client connected to the server');
 });
 
-redisClient.on('error', function (error) {
+publisher.on('error', function(error) {
   console.log(`Redis client not connected to the server: ${error.message}`);
 });
 
-//subscribing to the channel
-redisClient.subscribe('holberton school channel');
+//publish the message
+function publishMessage(message, time) {
+  //the message string with time
+  setTimeout(function () {
+    console.log(`About to send ${message}`);
+    publisher.publish('holberton school channel', message);
+  }, time);
+}
 
-//listen for any messages on channel
-redisClient.on('message', function (channel, message) {
-  console.log(`${message}`);
-  if (message === 'KILL_SERVER') {
-  // unsubscribe form the channel
-    redisClient.unsubscribe('holberton school channel');
-    redisClient.end(true);
-  }
-});
+publishMessage("Holberton Student #1 starts course", 100);
+publishMessage("Holberton Student #2 starts course", 200);
+publishMessage("KILL_SERVER", 300);
+publishMessage("Holberton Student #3 starts course", 400);
