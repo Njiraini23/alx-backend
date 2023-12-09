@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''Force the locale with URL parameter
+'''Task 4: Force locale with URL parameter
 '''
 
 from flask import Flask, render_template, request
@@ -7,7 +7,7 @@ from flask_babel import Babel
 
 
 class Config:
-    '''the config class'''
+    '''Config class'''
 
     DEBUG = True
     LANGUAGES = ["en", "fr"]
@@ -23,9 +23,10 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale() -> str:
-    """Retrieve the locale for the web page
-    Return:
-        the best match for the string
+    """Retrieves the locale for a web page.
+
+    Returns:
+        str: best match
     """
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
@@ -35,13 +36,15 @@ def get_locale() -> str:
 
 @app.route('/')
 def index() -> str:
-    '''the default route
-    Return the homepage
+    '''default route
+
+    Returns:
+        html: homepage
     '''
     return render_template("4-index.html")
 
-# this line is commented for the @babel.localeselector
-# if you uncomment the line, you get the error
+# uncomment this line and comment the @babel.localeselector
+# you get this error:
 # AttributeError: 'Babel' object has no attribute 'localeselector'
 # babel.init_app(app, locale_selector=get_locale)
 
