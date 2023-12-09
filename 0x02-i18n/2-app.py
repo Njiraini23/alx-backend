@@ -36,6 +36,7 @@ def index() -> str:
     Returns:
         the homepage
     '''
+    return render_template("2-index.html")
 
 
 if __name__ == "__main__":
