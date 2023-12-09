@@ -32,10 +32,10 @@ def get_locale() -> str:
 
 @app.route('/')
 def index() -> str:
-    '''default route
+    """default route
     Returns:
         the homepage
-    '''
+    """
 
 
 if __name__ == "__main__":
