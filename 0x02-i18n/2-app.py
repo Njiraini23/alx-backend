@@ -35,7 +35,12 @@ def index() -> str:
     """default route
     Returns:
         the homepage
+<<<<<<< HEAD
     """
+=======
+    '''
+    return render_template("2-index.html")
+>>>>>>> 6312f9a42e84ab39d8f00a8b730eab90bddfc172
 
 
 if __name__ == "__main__":
